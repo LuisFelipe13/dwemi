@@ -1,4 +1,4 @@
-// POST A BOOK
+// POST A GROUP
 export function postGroups(group) {
   return {
     type: "POST_GROUP",

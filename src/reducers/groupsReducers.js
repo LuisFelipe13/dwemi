@@ -10,7 +10,7 @@ export function groupsReducers(state = {
     case "DELETE_GROUP":
       // Create a copy of the current array of groups
       const currentGroupToDelete = [...state.groups]
-      // Determine at which index in books array is the group to be deleted
+      // Determine at which index in group array is the group to be deleted
       const indexToDelete = currentGroupToDelete.findIndex(group => group.id === action.payload.id)
       //use slice to remove the group at the specified index
       return {
@@ -20,7 +20,7 @@ export function groupsReducers(state = {
     case "UPDATE_GROUP":
       // Create a copy of the current array of groups
       const currentGroupToUpdate = [...state.groups]
-      // Determine at which index in books array is the group to be deleted
+      // Determine at which index in groups array is the group to be deleted
       const indexToUpdate = currentGroupToUpdate.findIndex(group => group.id === action.payload.id)
       // Create a new group object with the new values and with the same array index of the item we want to replace.
       const newGroupToUpdate = {
