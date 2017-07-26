@@ -1,0 +1,112 @@
+body {
+  background-color: #2a2a2a;
+}
+
+.panel-heading {
+  background-color: #f5f5f5 !important;
+  color: #000000 !important;
+  text-align: center;
+  font-weight: bold !important;
+}
+
+.panel-header {
+  font-weight: bold !important;
+}
+
+div.panel-body {
+  background-color: #686767 !important;
+}
+
+div.col-sm-9.col-xs-12 {
+  position:absolute !important;
+  left:50% !important;
+  transform: translateX(-50%) !important;
+  -webkit-transform: translateX(-50%) !important;
+}
+
+.progress{
+  background-color: ##bcbec1;
+}
+
+button#createGroup {
+  background: #fafafa;
+  background-image: -webkit-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -moz-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -ms-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -o-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: linear-gradient(to bottom, #fafafa, #a1a1a1);
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  font-size: 16px;
+  color: #000000;
+  font-weight: bold;
+  position:relative;
+  left:49.7%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+button#createGroup:hover {
+  background: #00d4ff;
+  border-color: #ec87d0;
+  border-width: 5px;
+}
+button#deleteGroup {
+  background: #fafafa;
+  background-image: -webkit-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -moz-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -ms-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -o-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: linear-gradient(to bottom, #fafafa, #a1a1a1);
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #000000;
+  font-weight: bold;
+  position: relative;
+  left: 49.7%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+button#deleteGroup:hover {
+  background: #00d4ff;
+  border-color: #ec87d0;
+  border-width: 5px;
+}
+button#createFund {
+  background: #fafafa;
+  background-image: -webkit-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -moz-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -ms-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: -o-linear-gradient(top, #fafafa, #a1a1a1);
+  background-image: linear-gradient(to bottom, #fafafa, #a1a1a1);
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-size: 16px;
+  color: #000000;
+  font-weight: bold;
+  position: relative;
+  left: 49.7%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+button#createFund:hover {
+  background: #00d4ff;
+  border-color: #ec87d0;
+  border-width: 5px;
+}
+
+div.thumbnail {
+  float: left;
+}
+
+.fundName {
+  text-align: center;
+}

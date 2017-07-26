@@ -1,3 +1,9 @@
+// GET GROUPS
+export function getGroups(group) {
+  return {
+    type: "GET_GROUPS"
+  }
+}
 // POST A GROUP
 export function postGroups(group) {
   return {
@@ -6,10 +12,10 @@ export function postGroups(group) {
   }
 }
 // DELETE A GROUP
-export function deleteGroups(id) {
+export function deleteGroups(_id) {
   return {
     type: "DELETE_GROUP",
-    payload: id
+    payload: _id
   }
 }
 // UPDATE A GROUP
