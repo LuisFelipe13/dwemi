@@ -14848,7 +14848,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getGroups = getGroups;
 exports.postGroups = postGroups;
+exports.postFunds = postFunds;
 exports.deleteGroups = deleteGroups;
+exports.deleteFunds = deleteFunds;
 exports.updateGroups = updateGroups;
 // GET GROUPS
 function getGroups(group) {
@@ -14863,11 +14865,25 @@ function postGroups(group) {
     payload: group
   };
 }
+// POST A FUND
+function postFunds(fund) {
+  return {
+    type: "POST_FUND",
+    payload: fund
+  };
+}
 // DELETE A GROUP
 function deleteGroups(_id) {
   return {
     type: "DELETE_GROUP",
     payload: _id
+  };
+}
+// DELETE A FUND
+function deleteFunds(groupId, fundId) {
+  return {
+    type: "DELETE_FUND",
+    payload: [groupId, fundId]
   };
 }
 // UPDATE A GROUP
@@ -18756,12 +18772,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //CREATE THE REDUX STORE
 
-//IMPORT COMBINED REDUCERS
-var middleware = (0, _redux.applyMiddleware)(_reduxLogger.logger);
 //IMPORT ACTIONS
 
 //REDUX
 //REACT
+var middleware = (0, _redux.applyMiddleware)(_reduxLogger.logger);
+//IMPORT COMBINED REDUCERS
 
 var store = (0, _redux.createStore)(_index2.default, middleware);
 
@@ -32258,36 +32274,42 @@ function groupsReducers() {
       funds: [{
         _id: 1,
         fundName: "Couch",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "New Black Leather Ikea Couch",
         goal: 100,
         balance: 50
       }, {
         _id: 2,
         fundName: "Spring Break",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "1 week in Miami, FL",
         goal: 1000,
         balance: 200
       }, {
         _id: 3,
         fundName: "Couch",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "New Black Leather Ikea Couch",
         goal: 100,
         balance: 50
       }, {
         _id: 4,
         fundName: "Spring Break",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "1 week in Miami, FL",
         goal: 1000,
         balance: 900
       }, {
         _id: 5,
         fundName: "Couch",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "New Black Leather Ikea Couch",
         goal: 100,
         balance: 50
       }, {
         _id: 6,
         fundName: "Spring Break",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "1 week in Miami, FL",
         goal: 1000,
         balance: 200
@@ -32298,12 +32320,14 @@ function groupsReducers() {
       funds: [{
         _id: 7,
         fundName: "Birthday Cake",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "For bob...",
         goal: 25,
         balance: 20
       }, {
         _id: 8,
         fundName: "Ping Pong Table",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "To replace broken one",
         goal: 500,
         balance: 100
@@ -32314,12 +32338,14 @@ function groupsReducers() {
       funds: [{
         _id: 9,
         fundName: "Couch",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "New Black Leather Ikea Couch",
         goal: 100,
         balance: 50
       }, {
         _id: 10,
         fundName: "Spring Break",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "1 week in Miami, FL",
         goal: 1000,
         balance: 200
@@ -32330,12 +32356,14 @@ function groupsReducers() {
       funds: [{
         _id: 11,
         fundName: "Birthday Cake",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "For bob...",
         goal: 25,
         balance: 20
       }, {
         _id: 12,
         fundName: "Ping Pong Table",
+        image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
         description: "To replace broken one",
         goal: 500,
         balance: 100
@@ -32351,23 +32379,55 @@ function groupsReducers() {
       return {
         groups: [].concat(_toConsumableArray(state.groups), _toConsumableArray(action.payload))
       };
+    case "POST_FUND":
+      console.log(action.payload);
+      var groupIndex = action.payload[0] - 1;
+      var fund = {
+        fundName: action.payload[1],
+        image: action.payload[2],
+        description: action.payload[4],
+        goal: action.payload[3],
+        balance: 0
+      };
+      state.groups[groupIndex].funds.push(fund);
+      var x = [].concat(_toConsumableArray(state.groups));
+      return {
+        groups: x
+      };
     case "DELETE_GROUP":
       // Create a copy of the current array of groups
       var currentGroupToDelete = [].concat(_toConsumableArray(state.groups));
       // Determine at which index in group array is the group to be deleted
-      var indexToDelete = currentGroupToDelete.findIndex(function (group) {
+      var groupIndexToDelete = currentGroupToDelete.findIndex(function (group) {
         return group._id == action.payload;
       });
       //use slice to remove the group at the specified index
       return {
-        groups: [].concat(_toConsumableArray(currentGroupToDelete.slice(0, indexToDelete)), _toConsumableArray(currentGroupToDelete.slice(indexToDelete + 1)))
+        groups: [].concat(_toConsumableArray(currentGroupToDelete.slice(0, groupIndexToDelete)), _toConsumableArray(currentGroupToDelete.slice(groupIndexToDelete + 1)))
+      };
+    case "DELETE_FUND":
+      var groupIndex = action.payload[0] - 1;
+      var fundId = action.payload[1];
+      // Create a copy of the current array of groups and their funds
+      var currentFundToDelete = [].concat(_toConsumableArray(state.groups));
+      // Determine at which index within a group's funds array is the fund to be deleted
+      var fundIndexToDelete = currentFundToDelete[groupIndex].funds.findIndex(function (fund) {
+        return fund._id == fundId;
+      });
+      //use slice to remove the fund at the specified index and return array of edited funds
+      var editedFunds = [].concat(_toConsumableArray(currentFundToDelete[groupIndex].funds.slice(0, fundIndexToDelete)), _toConsumableArray(currentFundToDelete[groupIndex].funds.slice(fundIndexToDelete + 1)));
+      //Pass the editedFunds array to the group it belongs to
+      state.groups[groupIndex].funds = editedFunds;
+      var x = [].concat(_toConsumableArray(state.groups));
+      return {
+        groups: x
       };
     case "UPDATE_GROUP":
       // Create a copy of the current array of groups
       var currentGroupToUpdate = [].concat(_toConsumableArray(state.groups));
       // Determine at which index in groups array is the group to be deleted
       var indexToUpdate = currentGroupToUpdate.findIndex(function (group) {
-        return group._id == action.payload._id;
+        return group._id == action.payload;
       });
       // Create a new group object with the new values and with the same array index of the item we want to replace.
       var newGroupToUpdate = _extends({}, currentGroupToUpdate[indexToUpdate], {
@@ -32425,7 +32485,8 @@ var GroupsList = function (_React$Component) {
 
     _this.state = {
       showCreateGroupModal: false,
-      showDeleteGroupModal: false
+      showDeleteGroupModal: false,
+      showCreateFundModal: false
     };
     return _this;
   }
@@ -32435,6 +32496,24 @@ var GroupsList = function (_React$Component) {
     value: function componentDidMount() {
       //Dispatching actions
       this.props.getGroups();
+    }
+
+    //MODAL BUTTON OPEN/CLOSE METHODS
+
+  }, {
+    key: 'openCreateGroupModal',
+    value: function openCreateGroupModal() {
+      this.setState({ showCreateGroupModal: true });
+    }
+  }, {
+    key: 'openDeleteGroupModal',
+    value: function openDeleteGroupModal() {
+      this.setState({ showDeleteGroupModal: true });
+    }
+  }, {
+    key: 'openCreateFundModal',
+    value: function openCreateFundModal() {
+      this.setState({ showCreateFundModal: true });
     }
   }, {
     key: 'closeCreateGroupModal',
@@ -32447,14 +32526,9 @@ var GroupsList = function (_React$Component) {
       this.setState({ showDeleteGroupModal: false });
     }
   }, {
-    key: 'openCreateGroupModal',
-    value: function openCreateGroupModal() {
-      this.setState({ showCreateGroupModal: true });
-    }
-  }, {
-    key: 'openDeleteGroupModal',
-    value: function openDeleteGroupModal() {
-      this.setState({ showDeleteGroupModal: true });
+    key: 'closeCreateFundModal',
+    value: function closeCreateFundModal() {
+      this.setState({ showCreateFundModal: false });
     }
   }, {
     key: 'handleSubmit',
@@ -32467,15 +32541,34 @@ var GroupsList = function (_React$Component) {
       this.setState({ showCreateGroupModal: false });
     }
   }, {
-    key: 'onDelete',
-    value: function onDelete() {
+    key: 'onGroupDelete',
+    value: function onGroupDelete() {
       var groupId = (0, _reactDom.findDOMNode)(this.refs.deleteGroup).value;
       this.props.deleteGroups(groupId);
       this.setState({ showDeleteGroupModal: false });
     }
   }, {
+    key: 'onFundDelete',
+    value: function onFundDelete(groupId, fundId) {
+      this.props.deleteFunds(groupId, fundId);
+    }
+  }, {
+    key: 'onFundCreate',
+    value: function onFundCreate() {
+      var groupId = (0, _reactDom.findDOMNode)(this.refs.selectGroup).value;
+      var fundName = (0, _reactDom.findDOMNode)(this.refs.fundName).value;
+      var imageUrl = (0, _reactDom.findDOMNode)(this.refs.imageUrl).value;
+      var goal = (0, _reactDom.findDOMNode)(this.refs.goal).value;
+      var description = (0, _reactDom.findDOMNode)(this.refs.description).value;
+      this.props.postFunds([groupId, fundName, imageUrl, goal, description]);
+      this.setState({ showCreateFundModal: false });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      //List of all groups & List of all funds
       var groupsList = this.props.groups.map(function (group) {
         return _react2.default.createElement(
           'option',
@@ -32483,11 +32576,22 @@ var GroupsList = function (_React$Component) {
           group.groupName
         );
       });
+      var fundsList = this.props.groups.map(function (group) {
+        var funds = group.funds.map(function (fund) {
+          return _react2.default.createElement(
+            'option',
+            { key: fund._id, value: fund._id },
+            fund.fundName
+          );
+        });
+        return funds;
+      });
+      //Creating Group Panels and Thumbnail's for Funds below said panels
       var groupPanels = this.props.groups.map(function (group) {
         var fundThumbnails = group.funds.map(function (fund) {
           return _react2.default.createElement(
             _reactBootstrap.Thumbnail,
-            { className: 'col-md-3 col-sm-4 col-xs-9', key: fund._id, src: 'http://u55.mpmserv.co.uk/users/55/7877/blankImage.png', alt: '242x200' },
+            { className: 'col-md-3 col-sm-4 col-xs-9', key: fund._id, src: fund.image, alt: '242x200' },
             _react2.default.createElement(
               'h3',
               { className: 'fyundName' },
@@ -32506,7 +32610,7 @@ var GroupsList = function (_React$Component) {
               { style: { textAlign: "center" } },
               _react2.default.createElement(
                 _reactBootstrap.Button,
-                { bsStyle: 'danger' },
+                { onClick: _this2.onFundDelete.bind(_this2, group._id, fund._id), bsStyle: 'danger' },
                 'Delete'
               )
             )
@@ -32624,7 +32728,7 @@ var GroupsList = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   _reactBootstrap.Button,
-                  { onClick: this.onDelete.bind(this), bsStyle: 'danger' },
+                  { onClick: this.onGroupDelete.bind(this), bsStyle: 'danger' },
                   'Delete'
                 )
               ),
@@ -32640,8 +32744,103 @@ var GroupsList = function (_React$Component) {
             ),
             _react2.default.createElement(
               _reactBootstrap.Button,
-              { id: 'createFund' },
+              { id: 'createFund', onClick: this.openCreateFundModal.bind(this) },
               'Create Fund'
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Modal,
+              { show: this.state.showCreateFundModal, onHide: this.closeCreateFundModal.bind(this) },
+              _react2.default.createElement(
+                _reactBootstrap.Modal.Header,
+                { closeButton: true },
+                _react2.default.createElement(
+                  _reactBootstrap.Modal.Title,
+                  null,
+                  'Create Fund'
+                )
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Modal.Body,
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.FormGroup,
+                  { controlId: 'fundDelete' },
+                  _react2.default.createElement(
+                    _reactBootstrap.ControlLabel,
+                    null,
+                    'Select Group'
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.FormControl,
+                    { componentClass: 'select', ref: 'selectGroup' },
+                    _react2.default.createElement(
+                      'option',
+                      null,
+                      'Select'
+                    ),
+                    groupsList
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.ControlLabel,
+                    null,
+                    'Fund Name'
+                  ),
+                  _react2.default.createElement(_reactBootstrap.FormControl, {
+                    type: 'text',
+                    placeholder: 'Couch, TV, Spring Break, etc',
+                    ref: 'fundName' }),
+                  _react2.default.createElement(
+                    _reactBootstrap.ControlLabel,
+                    null,
+                    'Image URL'
+                  ),
+                  _react2.default.createElement(_reactBootstrap.FormControl, {
+                    type: 'text',
+                    placeholder: 'www.example.com/image/1.png',
+                    ref: 'imageUrl' }),
+                  _react2.default.createElement(
+                    _reactBootstrap.ControlLabel,
+                    null,
+                    'Monetary Goal'
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.InputGroup,
+                    null,
+                    _react2.default.createElement(
+                      _reactBootstrap.InputGroup.Addon,
+                      null,
+                      '$'
+                    ),
+                    _react2.default.createElement(_reactBootstrap.FormControl, {
+                      type: 'text',
+                      placeholder: '000.00',
+                      ref: 'goal' })
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.ControlLabel,
+                    null,
+                    'Description'
+                  ),
+                  _react2.default.createElement(_reactBootstrap.FormControl, {
+                    componentClass: 'textarea',
+                    placeholder: 'Describe the fund here',
+                    ref: 'description' })
+                ),
+                _react2.default.createElement(
+                  _reactBootstrap.Button,
+                  { onClick: this.onFundCreate.bind(this), bsStyle: 'success' },
+                  'Create'
+                )
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Modal.Footer,
+                null,
+                _react2.default.createElement(
+                  _reactBootstrap.Button,
+                  { onClick: this.closeCreateFundModal.bind(this) },
+                  'Close'
+                )
+              )
             )
           )
         )
@@ -32676,7 +32875,9 @@ function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({
     getGroups: _groupsActions.getGroups,
     postGroups: _groupsActions.postGroups,
-    deleteGroups: _groupsActions.deleteGroups
+    deleteGroups: _groupsActions.deleteGroups,
+    deleteFunds: _groupsActions.deleteFunds,
+    postFunds: _groupsActions.postFunds
   }, dispatch);
 }
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GroupsList);

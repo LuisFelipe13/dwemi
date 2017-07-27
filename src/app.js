@@ -9,6 +9,7 @@ import {logger} from 'redux-logger'
 import reducers from './reducers/index'
 //IMPORT ACTIONS
 import {postGroups, deleteGroups, updateGroups} from './actions/groupsActions'
+import {postFunds, deleteFunds, updateFunds} from './actions/groupsActions'
 
 //CREATE THE REDUX STORE
 const middleware = applyMiddleware(logger)
