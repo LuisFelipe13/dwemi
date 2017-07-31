@@ -1,148 +1,30 @@
 //GROUPS REDUCERS
 export function groupsReducers(state = {
-  groups:
-    [{
-      _id: 1,
-      groupName: 'Roomates',
-      funds: [
-        {
-          _id: 1,
-          fundName: "Couch",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "New Black Leather Ikea Couch",
-          goal: 100,
-          balance: 50
-        },
-        {
-          _id: 2,
-          fundName: "Spring Break",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "1 week in Miami, FL",
-          goal: 1000,
-          balance: 200
-        },
-        {
-          _id: 3,
-          fundName: "Couch",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "New Black Leather Ikea Couch",
-          goal: 100,
-          balance: 50
-        },
-        {
-          _id: 4,
-          fundName: "Spring Break",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "1 week in Miami, FL",
-          goal: 1000,
-          balance: 900
-        },
-        {
-          _id: 5,
-          fundName: "Couch",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "New Black Leather Ikea Couch",
-          goal: 100,
-          balance: 50
-        },
-        {
-          _id: 6,
-          fundName: "Spring Break",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "1 week in Miami, FL",
-          goal: 1000,
-          balance: 200
-        }
-      ]
-    },
-    {
-      _id: 2,
-      groupName: 'Coworkers',
-      funds: [
-        {
-          _id: 7,
-          fundName: "Birthday Cake",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "For bob...",
-          goal: 25,
-          balance: 20
-        },
-        {
-          _id: 8,
-          fundName: "Ping Pong Table",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "To replace broken one",
-          goal: 500,
-          balance: 100
-        }
-      ]
-    },
-    {
-      _id: 3,
-      groupName: 'Family',
-      funds: [
-        {
-          _id: 9,
-          fundName: "Couch",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "New Black Leather Ikea Couch",
-          goal: 100,
-          balance: 50
-        },
-        {
-          _id: 10,
-          fundName: "Spring Break",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "1 week in Miami, FL",
-          goal: 1000,
-          balance: 200
-        }
-      ]
-    },
-    {
-      _id: 4,
-      groupName: 'Coworkers',
-      funds: [
-        {
-          _id: 11,
-          fundName: "Birthday Cake",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "For bob...",
-          goal: 25,
-          balance: 20
-        },
-        {
-          _id: 12,
-          fundName: "Ping Pong Table",
-          image: "http://u55.mpmserv.co.uk/users/55/7877/blankImage.png",
-          description: "To replace broken one",
-          goal: 500,
-          balance: 100
-        }
-      ]
-    }]
+  groups: []
 }, action) {
   switch (action.type) {
     case "GET_GROUPS":
-      return {...state, groups:[...state.groups]}
+      return {...state, groups:[...action.payload]}
     case "POST_GROUP":
       return {
         groups: [...state.groups, ...action.payload]
       }
     case "POST_FUND":
-      console.log(action.payload)
-      var groupIndex = (action.payload[0] - 1)
+      // Create a copy of the current array of groups and their funds
+      const currentGroupsFundsToAddInto = [...state.groups]
+      const groupIndexNeeded = currentGroupsFundsToAddInto.findIndex(group => group._id == action.payload._id)
+      const index = (action.payload.funds.length - 1);
       const fund = {
-        fundName: action.payload[1],
-        image: action.payload[2],
-        description: action.payload[4],
-        goal: action.payload[3],
-        balance: 0
+        fundName: action.payload.funds[index].fundName,
+        image: action.payload.funds[index].image,
+        description: action.payload.funds[index].description,
+        goal: action.payload.funds[index].goal,
+        balance: 0,
+        _id: action.payload.funds[index]._id
       }
-      state.groups[groupIndex].funds.push(fund)
-      var x = [...state.groups]
+      state.groups[groupIndexNeeded].funds.push(fund)
       return {
-        groups: x
+        groups: [...state.groups]
       }
     case "DELETE_GROUP":
       // Create a copy of the current array of groups
@@ -155,20 +37,19 @@ export function groupsReducers(state = {
           ...currentGroupToDelete.slice(groupIndexToDelete + 1)]
       }
     case "DELETE_FUND":
-      var groupIndex = (action.payload[0] - 1)
-      let fundId = action.payload[1]
       // Create a copy of the current array of groups and their funds
-      const currentFundToDelete = [...state.groups]
+      const currentGroupsFundsToEdit = [...state.groups]
+      const groupIndex = currentGroupsFundsToEdit.findIndex(group => group._id == action.payload[0])
+      let fundId = action.payload[1]
       // Determine at which index within a group's funds array is the fund to be deleted
-      const fundIndexToDelete = currentFundToDelete[groupIndex].funds.findIndex(fund => fund._id == fundId)
+      const fundIndexToDelete = currentGroupsFundsToEdit[groupIndex].funds.findIndex(fund => fund._id == fundId)
       //use slice to remove the fund at the specified index and return array of edited funds
-      const editedFunds = [...currentFundToDelete[groupIndex].funds.slice(0, fundIndexToDelete),
-          ...currentFundToDelete[groupIndex].funds.slice(fundIndexToDelete + 1)]
+      const editedFunds = [...currentGroupsFundsToEdit[groupIndex].funds.slice(0, fundIndexToDelete),
+          ...currentGroupsFundsToEdit[groupIndex].funds.slice(fundIndexToDelete + 1)]
       //Pass the editedFunds array to the group it belongs to
       state.groups[groupIndex].funds = editedFunds
-      var x = [...state.groups]
       return {
-        groups: x
+        groups: [...state.groups]
       }
     case "UPDATE_GROUP":
       // Create a copy of the current array of groups

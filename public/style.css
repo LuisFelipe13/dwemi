@@ -6,7 +6,10 @@ body {
   background-color: #f5f5f5 !important;
   color: #000000 !important;
   text-align: center;
+}
+.panel-heading a {
   font-weight: bold !important;
+  font-size: 20px;
 }
 
 .panel-header {
@@ -17,96 +20,114 @@ div.panel-body {
   background-color: #686767 !important;
 }
 
-div.col-sm-9.col-xs-12 {
-  position:absolute !important;
-  left:50% !important;
+div.col-lg-7.col-md-8.col-sm-9.col-xs-12 {
+  position: absolute !important;
+  top: 330px !important;
+  left: 50% !important;
   transform: translateX(-50%) !important;
   -webkit-transform: translateX(-50%) !important;
 }
 
+div.thumbnail {
+  height: 345px;
+  width: 200px;
+  float: left;
+}
+
+.thumbnail img{
+  height: 200px;
+  width: 200px;
+}
+
+.thumbnail h3{
+  margin-top: 0px;
+  font-size: 16px;
+  justify-content: center;
+  text-align: center;
+}
+
 .progress{
   background-color: ##bcbec1;
-}
-
-button#createGroup {
-  background: #fafafa;
-  background-image: -webkit-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -moz-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -ms-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -o-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: linear-gradient(to bottom, #fafafa, #a1a1a1);
-  -webkit-border-radius: 7;
-  -moz-border-radius: 7;
   margin-bottom: 10px;
-  border-radius: 7px;
-  font-size: 16px;
-  color: #000000;
-  font-weight: bold;
-  position:relative;
-  left:49.7%;
-  transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-}
-
-button#createGroup:hover {
-  background: #00d4ff;
-  border-color: #ec87d0;
-  border-width: 5px;
-}
-button#deleteGroup {
-  background: #fafafa;
-  background-image: -webkit-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -moz-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -ms-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -o-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: linear-gradient(to bottom, #fafafa, #a1a1a1);
-  -webkit-border-radius: 7;
-  -moz-border-radius: 7;
-  border-radius: 7px;
-  margin-bottom: 10px;
-  font-size: 16px;
-  color: #000000;
-  font-weight: bold;
-  position: relative;
-  left: 49.7%;
-  transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-}
-
-button#deleteGroup:hover {
-  background: #00d4ff;
-  border-color: #ec87d0;
-  border-width: 5px;
-}
-button#createFund {
-  background: #fafafa;
-  background-image: -webkit-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -moz-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -ms-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: -o-linear-gradient(top, #fafafa, #a1a1a1);
-  background-image: linear-gradient(to bottom, #fafafa, #a1a1a1);
-  -webkit-border-radius: 7;
-  -moz-border-radius: 7;
-  border-radius: 7px;
-  font-size: 16px;
-  color: #000000;
-  font-weight: bold;
-  position: relative;
-  left: 49.7%;
-  transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-}
-
-button#createFund:hover {
-  background: #00d4ff;
-  border-color: #ec87d0;
-  border-width: 5px;
-}
-
-div.thumbnail {
-  float: left;
 }
 
 .fundName {
   text-align: center;
+}
+
+.navbar-nav {
+  width: 100%;
+  text-align: center;
+  > li {
+    float: none;
+    display: inline-block;
+  }
+}
+
+.navbar-brand {
+  background: url(https://image.ibb.co/b0aVjk/logo.png) center / contain no-repeat;
+  width: 626px;
+  height: 130px;
+}
+
+.navbar-fixed-top {
+  border-width: 0 0 4px;
+  min-height: 150px;
+}
+
+.navbar-inverse {
+  border-color: #ec87d0;
+}
+
+.navbar-header {
+  float: none;
+  text-align: center;
+}
+.navbar-brand {
+  display: inline-block;
+  float: none;
+}
+ul.nav.navbar-nav.navbar-center {
+  width: 440px;
+  float: right;
+}
+
+ul.nav li a{
+  color: #a1dbe6 !important;
+  font-size: 20px;
+}
+ul.nav a:hover { color: #e8ade6!important; }
+
+@media (max-width: 850px) {
+  .navbar-toggle {
+      display: block;
+  }
+
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-collapse.collapse.in{
+      display: block!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin: 7.5px -15px;
+  }
+  .navbar-nav>li {
+      float: none;
+      text-align: right;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+}
+
+div.container {
+  width: inherit;
+}
+
+#index-header {
+  margin: 0 auto;
+  width: 440px;
 }
