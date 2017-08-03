@@ -109,10 +109,10 @@ class GroupsList extends React.Component {
 
   individuals(thisGroup) {
     return this.groupsUsers().map(group => {
-      console.log(group.name, thisGroup);
-      if (group.name === thisGroup) {
+      // console.log("compare", group.name, thisGroup);
+      if (group.name == thisGroup) {
         return group.members.map(member => {
-          return <h2>{member.name}</h2>
+          return <h3>{member.name}</h3>
         })
       }
     })

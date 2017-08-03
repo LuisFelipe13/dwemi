@@ -49591,11 +49591,11 @@ var GroupsList = function (_React$Component) {
     key: 'individuals',
     value: function individuals(thisGroup) {
       return this.groupsUsers().map(function (group) {
-        console.log(group.name, thisGroup);
-        if (group.name === thisGroup) {
+        // console.log("compare", group.name, thisGroup);
+        if (group.name == thisGroup) {
           return group.members.map(function (member) {
             return _react2.default.createElement(
-              'h2',
+              'h3',
               null,
               member.name
             );
