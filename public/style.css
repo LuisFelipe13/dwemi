@@ -149,6 +149,9 @@ div#fund-body-box h2 {
   margin-top: -5px;
   display: inline-flex;
 }
+div#fund-body-box h3 {
+  color: #a1dbe6;
+}
 div#fund-page.progress {
   width: 72%;
   display: inline-flex;

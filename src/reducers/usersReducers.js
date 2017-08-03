@@ -1,14 +1,34 @@
 //USERS REDUCERS
 export function usersReducers(state = {
   errors: [],
-  users: [],
-  user: []
+  user: [],
+  users: []
 }, action) {
   switch (action.type) {
     case "GET_USERS":
       return {...state, users:[...action.payload]}
+    case "GET_USER":
+      var user = {
+        name: action.payload[0],
+        email: action.payload[1],
+        groups: action.payload[2]
+      }
+      return {
+        errors: [],
+        users: [],
+        user: [user]
+      }
+    case "GET_USER_REJECTED":
+      const errors = [{
+        msg: action.payload
+      }]
+      return {
+        errors: [errors],
+        users: [],
+        user: []
+      }
     case "POST_USER":
-      const user = {
+      var user = {
         name: action.payload[0],
         email: action.payload[1],
         groups: []
@@ -21,7 +41,7 @@ export function usersReducers(state = {
         user: [...state.user]
       }
     case "POST_USER_REJECTED":
-      const errors = action.payload
+      var errors = action.payload
       return {
         errors: [action.payload],
         users: [],

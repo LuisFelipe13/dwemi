@@ -90,6 +90,20 @@ app.get('/users', function(req, res) {
     res.json(users)
   })
 })
+//----->>>> FIND USER <<<---------
+app.get('/users/many', function(req, res) {
+  let ids = req.params.ids
+  var usersArray = []
+  ids.map(id => {
+    Users.findOne({_id: id},function(err, user) {
+      if (err) {
+        throw err
+      }
+      usersArray.push(user)
+    })
+  })
+  res.json(usersArray)
+})
 //----->>>> GET USER <<<---------
 app.get('/users/:email/:password', function(req, res) {
   // console.log(req.params.email.toString());
@@ -105,7 +119,7 @@ app.get('/users/:email/:password', function(req, res) {
         res.json(user)
       } else {
         console.log("Invalid password");
-        res.json("Invalid password")
+        res.json({msg: "Invalid password"})
       }
     })
   })

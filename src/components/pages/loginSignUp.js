@@ -13,15 +13,15 @@ class LoginSignUp extends React.Component {
   constructor() {
     super()
     this.state = {
-      redirect: false
+      redirect: false,
+      attempted: false
     }
   }
 
-  componentDidMount(){
-    this.props.getUsers()
-  }
-
   handleSignUp = (event) => {
+    if (event) {
+      event.preventDefault()
+    }
     let firstName = findDOMNode(this.refs.firstName).value
     let lastName = findDOMNode(this.refs.lastName).value
     let email = findDOMNode(this.refs.email).value
@@ -29,26 +29,33 @@ class LoginSignUp extends React.Component {
     let password = findDOMNode(this.refs.password).value
     let passwordConfirmation = findDOMNode(this.refs.passwordConfirmation).value
     this.props.postUsers(firstName, lastName, email, emailConfirmation, password, passwordConfirmation)
-    // if (this.props.errors.length) {
-    //   this.setState({ redirect: true })
-    // }
+    // this.setState({ attempted: true })
   }
-  handleSignIn = (event) => {
+
+  handleSignIn(event) {
     event.preventDefault()
     let email = findDOMNode(this.refs.loginEmail).value
     let password = findDOMNode(this.refs.loginPassword).value
     this.props.getUser(email, password)
-    // if (this.props.errors.length) {
+    // if (this.props.users.length > 0) {
     //   this.setState({ redirect: true })
     // }
   }
 
   signUpErrors() {
+    console.log(this.props.errors);
     if (this.props.errors.length > 0) {
       return this.props.errors[0].map((error, i)=> {
         return <div className="alert alert-danger" key={i}>{error.msg}</div>
       })
     }
+    // var that = this
+    // setTimeout(function(){
+    //   if (that.state.attempted === true && that.props.errors.length === 0){
+    //     that.setState({redirect: true})
+    //   }
+    // }, 2000);
+
   }
 
   userForms() {
@@ -68,7 +75,7 @@ class LoginSignUp extends React.Component {
                 </FormGroup>
 
                 <FormGroup>
-                    <Button type="submit" onClick={this.handleSignIn}>
+                    <Button type="submit" onClick={this.handleSignIn.bind(this)}>
                       Sign in
                     </Button>
                 </FormGroup>
@@ -128,6 +135,7 @@ class LoginSignUp extends React.Component {
 function mapStateToProps(state) {
   return {
     users: state.users.users,
+    user: state.users.user,
     errors: state.users.errors
   }
 }

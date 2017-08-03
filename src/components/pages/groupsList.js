@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {getGroups} from '../../actions/groupsActions'
 import {getUsers} from '../../actions/usersActions'
 import {getUser} from '../../actions/usersActions'
+import {findUser} from '../../actions/usersActions'
 import {postGroups} from '../../actions/groupsActions'
 import {deleteGroups} from '../../actions/groupsActions'
 import {deleteFunds} from '../../actions/groupsActions'
@@ -18,7 +19,7 @@ class GroupsList extends React.Component {
   }
   componentDidMount(){
     this.props.getGroups()
-    this.props.getUser()
+    this.props.getUsers()
   }
 
   toggleModal(modalId) {
@@ -68,6 +69,7 @@ class GroupsList extends React.Component {
                   }}>${fund.balance}/${fund.goal}</h3>
                   <h2 style={{color: "#f6f6f6"}}>Progress:</h2>
                   <ProgressBar id="fund-page" striped bsStyle={colorLogic(fund.balance, fund.goal)} active now={percentage(fund.balance, fund.goal)} />
+                  {this.individuals(group.groupName)}
                 </div>
               </Modal.Body>
               <Modal.Footer style={{backgroundColor: "#2a2a2a"}}>
@@ -89,7 +91,35 @@ class GroupsList extends React.Component {
     ))
   }
 
+  groupsUsers() {
+    const theNames = []
+    return (
+      this.props.groups.map(group => {
+        if (group.members !== []) {
+          return {
+            name: [group.groupName],
+            members: group.members.map(member => {
+              return this.props.users.find(user => user._id === member)
+            })
+          }
+        }
+      })
+    )
+  }
+
+  individuals(thisGroup) {
+    return this.groupsUsers().map(group => {
+      console.log(group.name, thisGroup);
+      if (group.name === thisGroup) {
+        return group.members.map(member => {
+          return <h2>{member.name}</h2>
+        })
+      }
+    })
+  }
+
   render() {
+    console.log("groupUsers:", this.groupsUsers())
     return (
       <Grid>
         <Row>
@@ -131,6 +161,7 @@ function mapDispatchToProps(dispatch) {
     getGroups: getGroups,
     getUsers: getUsers,
     getUser: getUser,
+    findUser: findUser,
     postGroups: postGroups,
     deleteGroups: deleteGroups,
     deleteFunds: deleteFunds,

@@ -23,15 +23,15 @@ export function getUser(email, password) {
     axios.get(`/users/${email}/${password}`)
       .then(function(response) {
         console.log(response);
-        if (response.data === "Invalid password") {
+        if (response.data.msg === "Invalid password") {
           dispatch({
             type: "GET_USER_REJECTED",
-            payload: response.message
+            payload: response.data.msg
           })
         } else {
           dispatch({
             type: "GET_USER",
-            payload: [response.data.email, response.data.name]
+            payload: [response.data.name, response.data.email, response.data.groups]
           })
         }
       })
@@ -58,7 +58,6 @@ export function postUsers(firstName, lastName, email, emailConfirmation, passwor
             payload: response.data.errors
           })
         } else {
-          console.log(name)
           dispatch({
             type: "POST_USER",
             payload: [name, email]

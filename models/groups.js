@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const groupsSchema = mongoose.Schema({
   "groupName": String,
+  "members": Array,
   "funds": [{
     'fundName': String,
     'image': String,

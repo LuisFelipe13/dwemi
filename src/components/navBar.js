@@ -21,10 +21,31 @@ class NavBar extends React.Component{
   }
 
   handleSubmit = () => {
+    const members1 = findDOMNode(this.refs.members1).value
+    const members2 = findDOMNode(this.refs.members2).value
+    const members3 = findDOMNode(this.refs.members3).value
+    const members4 = findDOMNode(this.refs.members4).value
+    const members5 = findDOMNode(this.refs.members5).value
     const group = [{
       groupName: findDOMNode(this.refs.groupName).value,
+      members: [],
       funds: []
     }]
+    if (members1 !== "select") {
+      group[0].members.push(members1)
+    }
+    if (members2 !== "select") {
+      group[0].members.push(members2)
+    }
+    if (members3 !== "select") {
+      group[0].members.push(members3)
+    }
+    if (members4 !== "select") {
+      group[0].members.push(members4)
+    }
+    if (members5 !== "select") {
+      group[0].members.push(members5)
+    }
     this.props.postGroups(group)
     this.setState({ showCreateGroupModal: false })
   }
@@ -69,10 +90,13 @@ class NavBar extends React.Component{
     const groupsList = this.props.groups.map(group => (
         <option key={group._id} value={group._id}>{group.groupName}</option>
     ))
-
+    const usersList = this.props.users.map(user => (
+        <option key={user._id} value={user._id}>{user.name}</option>
+    ))
     const fundsList = this.props.groups.map(group => (
       group.funds.map(fund => (<option key={fund._id} value={fund._id}>{fund.fundName}</option>))
     ))
+
 
     return(
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -120,6 +144,27 @@ class NavBar extends React.Component{
                         type="text"
                         placeholder="Group Name"
                         ref="groupName" />
+                      <ControlLabel>Add Users</ControlLabel>
+                      <FormControl componentClass="select" ref="members1">
+                        <option value="select">select</option>
+                        {usersList}
+                      </FormControl><br/>
+                      <FormControl componentClass="select" ref="members2">
+                        <option value="select">select</option>
+                        {usersList}
+                      </FormControl><br/>
+                      <FormControl componentClass="select" ref="members3">
+                        <option value="select">select</option>
+                        {usersList}
+                      </FormControl><br/>
+                      <FormControl componentClass="select" ref="members4">
+                        <option value="select">select</option>
+                        {usersList}
+                      </FormControl><br/>
+                      <FormControl componentClass="select" ref="members5">
+                        <option value="select">select</option>
+                        {usersList}
+                      </FormControl>
                     </FormGroup>
                   </Modal.Body>
                   <Modal.Footer>
@@ -181,7 +226,8 @@ class NavBar extends React.Component{
 
 function mapStateToProps(state) {
   return {
-    groups: state.groups.groups
+    groups: state.groups.groups,
+    users: state.users.users
   }
 }
 
