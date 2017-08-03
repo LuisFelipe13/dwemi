@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 const groupsSchema = mongoose.Schema({
-  "groupName" : String,
-  "funds" : [{
+  "groupName": String,
+  "funds": [{
     'fundName': String,
     'image': String,
     'description': String,

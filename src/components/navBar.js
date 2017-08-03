@@ -66,19 +66,14 @@ class NavBar extends React.Component{
 
   render() {
     //List of all groups & List of all funds
-    const groupsList = this.props.groups.map(group => {
-      return (
+    const groupsList = this.props.groups.map(group => (
         <option key={group._id} value={group._id}>{group.groupName}</option>
-      )
-    })
-    const fundsList = this.props.groups.map(group => {
-      let funds = group.funds.map(fund => {
-        return (
-          <option key={fund._id} value={fund._id}>{fund.fundName}</option>
-        )
-      })
-      return funds
-    })
+    ))
+
+    const fundsList = this.props.groups.map(group => (
+      group.funds.map(fund => (<option key={fund._id} value={fund._id}>{fund.fundName}</option>))
+    ))
+
     return(
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div className="container">
@@ -199,4 +194,5 @@ function mapDispatchToProps(dispatch) {
     postFunds: postFunds
   }, dispatch)
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

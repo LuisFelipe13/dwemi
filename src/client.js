@@ -14,71 +14,36 @@ import {postFunds, deleteFunds, updateFunds} from './actions/groupsActions'
 //CREATE THE REDUX STORE
 const middleware = applyMiddleware(thunk, logger)
 const store = createStore(reducers, middleware)
-
+//REACT-ROUTER
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+//COMPONENTS
 import NavBar from './components/navBar'
 import GroupsList from './components/pages/groupsList'
+import LoginSignUp from './components/pages/loginSignUp'
 
-render(
+const Routes = (
   <Provider store={store}>
-    <div>
-      <GroupsList />
-      <NavBar />
-    </div>
-  </Provider>, document.getElementById('app')
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/login" component={LoginSignUp} />
+          <Route path="/" render={
+            () => {
+              return (
+                <div>
+                  <NavBar />
+                  <div>
+                  <Route path="/" component={GroupsList} />
+                  </div>
+                </div>
+              )
+            }
+          }/>
+        </Switch>
+      </div>
+    </Router>
+  </Provider>
 )
-
-//POST a group/groups
-// store.dispatch(postGroups(
-//   [{
-//     id: 1,
-//     groupName: 'Roomates',
-//     funds: [
-//       {
-//         id: 1,
-//         fundName: "Couch",
-//         description: "New Black Leather Ikea Couch",
-//         goal: 100,
-//         balance: 50
-//       },
-//       {
-//         id: 2,
-//         fundName: "Spring Break",
-//         description: "1 week in Miami, FL",
-//         goal: 1000,
-//         balance: 200
-//       }
-//     ]
-//   },
-//   {
-//     id: 2,
-//     groupName: 'Coworkers',
-//     funds: [
-//       {
-//         id: 1,
-//         fundName: "Birthday Cake",
-//         description: "For bob...",
-//         goal: 25,
-//         balance: 20
-//       },
-//       {
-//         id: 2,
-//         fundName: "Ping Pong Table",
-//         description: "To replace broken one",
-//         goal: 500,
-//         balance: 100
-//       },
-//   {
-//     id: 2,
-//     groupName: 'Coworkers',
-//     funds: []
-//   }]
-// ))
-// DELETE a group
-// store.dispatch(deleteGroups({id: 1}))
-// // UPDATE a group
-// store.dispatch(updateGroups(
-//   {
-//     id: 2,
-//     Groupname: 'Family'
-//   }
-// ))
+render(
+  Routes, document.getElementById('app')
+)
